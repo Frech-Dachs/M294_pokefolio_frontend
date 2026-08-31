@@ -1,0 +1,30 @@
+<div class="login-page">
+  <mat-card class="login-card">
+    <mat-card-header>
+      <mat-card-title>Pokefolio</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      @if (isAuthenticated()) {
+        <p>Angemeldet als</p>
+        <mat-chip>{{ username || useralias }}</mat-chip>
+      } @else {
+        <p>Bitte melde dich an, um dein Pokefolio zu sehen.</p>
+      }
+    </mat-card-content>
+
+    <mat-card-actions>
+      @if (isAuthenticated()) {
+        <button (click)="logout()" color="warn" mat-flat-button>
+          <mat-icon>logout</mat-icon>
+          Logout
+        </button>
+      } @else {
+        <button (click)="login()" color="primary" mat-flat-button>
+          <mat-icon>login</mat-icon>
+          Login
+        </button>
+      }
+    </mat-card-actions>
+  </mat-card>
+</div>

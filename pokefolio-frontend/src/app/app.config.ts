@@ -1,11 +1,43 @@
-import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
+import { provideHttpClient, withInterceptorsFromDi, withXsrfConfiguration } from '@angular/common/http';
+import {
+  ApplicationConfig,
+  importProvidersFrom,
+  inject,
+  provideBrowserGlobalErrorListeners,
+  provideEnvironmentInitializer
+} from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 import { provideRouter } from '@angular/router';
+import { AuthConfig, OAuthStorage, provideOAuthClient } from 'angular-oauth2-oidc';
 
+import { environment } from '../environments/environment';
+import { authConfig } from './app.auth';
 import { routes } from './app.routes';
+import { AppAuthService } from './service/app.auth.service';
+
+function storageFactory(): OAuthStorage {
+  return sessionStorage;
+}
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideRouter(routes)
+    provideRouter(routes),
+    importProvidersFrom(BrowserModule),
+    { provide: AuthConfig, useValue: authConfig },
+    { provide: OAuthStorage, useFactory: storageFactory },
+    provideHttpClient(
+      withInterceptorsFromDi(),
+      withXsrfConfiguration({ cookieName: 'XSRF-TOKEN', headerName: 'X-XSRF-TOKEN' })
+    ),
+    provideOAuthClient({
+      resourceServer: {
+        sendAccessToken: true,
+        allowedUrls: [environment.backendBaseUrl]
+      }
+    }),
+    provideEnvironmentInitializer(() => {
+      void inject(AppAuthService).initAuth();
+    })
   ]
 };
