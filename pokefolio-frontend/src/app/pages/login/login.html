@@ -15,6 +15,10 @@
 
     <mat-card-actions>
       @if (isAuthenticated()) {
+        <button color="primary" mat-flat-button routerLink="/app">
+          <mat-icon>collections_bookmark</mat-icon>
+          Zu meinem Pokefolio
+        </button>
         <button (click)="logout()" color="warn" mat-flat-button>
           <mat-icon>logout</mat-icon>
           Logout

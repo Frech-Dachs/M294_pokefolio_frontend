@@ -1,0 +1,21 @@
+<button class="user-badge" mat-button [matMenuTriggerFor]="menu">
+  <mat-icon class="user-badge__avatar">account_circle</mat-icon>
+  <span class="user-badge__info">
+    <span class="user-badge__name">{{ displayName }}</span>
+    <span class="user-badge__status">{{ isAuthenticated() ? 'Signed in' : 'Not signed in' }}</span>
+  </span>
+</button>
+
+<mat-menu #menu="matMenu">
+  @if (isAuthenticated()) {
+    <button (click)="logout()" mat-menu-item>
+      <mat-icon>logout</mat-icon>
+      <span>Logout</span>
+    </button>
+  } @else {
+    <button (click)="login()" mat-menu-item>
+      <mat-icon>login</mat-icon>
+      <span>Login</span>
+    </button>
+  }
+</mat-menu>

@@ -1,0 +1,47 @@
+.user-badge {
+  display: flex !important;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 8px 12px !important;
+  border: 1px solid var(--mat-sys-outline-variant);
+  border-radius: 12px;
+
+  ::ng-deep .mdc-button__label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+  }
+
+  &__avatar {
+    font-size: 32px;
+    width: 32px;
+    height: 32px;
+    color: var(--mat-sys-outline);
+    flex-shrink: 0;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-transform: none;
+    line-height: 1.2;
+    overflow: hidden;
+  }
+
+  &__name {
+    font: var(--mat-sys-label-large);
+    color: var(--mat-sys-on-surface);
+    max-width: 160px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__status {
+    font: var(--mat-sys-label-small);
+    color: var(--mat-sys-on-surface-variant);
+  }
+}

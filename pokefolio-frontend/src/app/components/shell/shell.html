@@ -1,0 +1,43 @@
+<mat-sidenav-container class="shell">
+  <mat-sidenav class="shell__sidenav" mode="side" opened>
+    <a class="shell__brand" routerLink="/app">
+      <mat-icon class="shell__brand-icon">catching_pokemon</mat-icon>
+      <span class="shell__brand-name">Pokefolio</span>
+    </a>
+
+    <p class="shell__section-label">Collections</p>
+    <mat-nav-list class="shell__nav-list">
+      @for (collection of collections; track collection.id) {
+        <a
+          [routerLink]="['/app/collections', collection.id]"
+          class="shell__nav-item"
+          mat-list-item
+          routerLinkActive="shell__nav-item--active"
+        >
+          <mat-icon matListItemIcon>folder</mat-icon>
+          <span matListItemTitle>{{ collection.name }}</span>
+        </a>
+      }
+    </mat-nav-list>
+
+    <span class="shell__spacer"></span>
+
+    <mat-nav-list class="shell__nav-list">
+      <button
+        class="shell__nav-item shell__nav-item--disabled"
+        disabled
+        mat-list-item
+        matTooltip="Bald verfügbar"
+      >
+        <mat-icon matListItemIcon>storage</mat-icon>
+        <span matListItemTitle>Card Database</span>
+      </button>
+    </mat-nav-list>
+
+    <app-user-badge class="shell__user-badge" />
+  </mat-sidenav>
+
+  <mat-sidenav-content class="shell__content">
+    <router-outlet />
+  </mat-sidenav-content>
+</mat-sidenav-container>

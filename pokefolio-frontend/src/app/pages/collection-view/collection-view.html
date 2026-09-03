@@ -1,0 +1,26 @@
+<section class="collection-view">
+  @if (cards.length) {
+    <div class="collection-view__grid">
+      @for (card of cards; track card.id) {
+        <a [routerLink]="['/app/card', card.id]" class="collection-view__grid-item">
+          <app-pokemon-card [imageUrl]="card.imageUrl" [name]="card.name" [subtitle]="card.subtitle" />
+        </a>
+      }
+    </div>
+  } @else {
+    <div class="collection-view__empty">
+      <mat-icon>catching_pokemon</mat-icon>
+      <p>Diese Collection enthält noch keine Karten.</p>
+    </div>
+  }
+
+  <button
+    (click)="addCard()"
+    aria-label="Karte hinzufügen"
+    class="collection-view__fab"
+    color="primary"
+    mat-fab
+  >
+    <mat-icon>add</mat-icon>
+  </button>
+</section>

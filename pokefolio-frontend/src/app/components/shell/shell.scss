@@ -1,0 +1,77 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
+.shell {
+  height: 100%;
+
+  &__sidenav {
+    display: flex;
+    flex-direction: column;
+    width: 264px;
+    padding: 16px 12px;
+    gap: 4px;
+    border-right: 1px solid var(--mat-sys-outline-variant);
+    background-color: var(--mat-sys-surface);
+  }
+
+  &__brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px 20px;
+    text-decoration: none;
+    color: var(--mat-sys-on-surface);
+  }
+
+  &__brand-icon {
+    font-size: 28px;
+    width: 28px;
+    height: 28px;
+    color: var(--mat-sys-primary);
+  }
+
+  &__brand-name {
+    font: var(--mat-sys-title-large);
+  }
+
+  &__section-label {
+    margin: 4px 12px;
+    font: var(--mat-sys-label-small);
+    color: var(--mat-sys-on-surface-variant);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  &__nav-list {
+    padding: 0;
+  }
+
+  &__nav-item {
+    border-radius: 8px;
+
+    &--active {
+      background-color: var(--mat-sys-secondary-container);
+      color: var(--mat-sys-on-secondary-container);
+    }
+
+    &--disabled {
+      width: 100%;
+      opacity: 0.6;
+    }
+  }
+
+  &__spacer {
+    flex: 1 1 auto;
+  }
+
+  &__user-badge {
+    margin-top: 12px;
+  }
+
+  &__content {
+    padding: 24px 32px;
+    background-color: var(--mat-sys-surface-container-lowest);
+  }
+}

@@ -1,28 +1,16 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { MatButton } from '@angular/material/button';
-import { MatCard, MatCardActions, MatCardContent, MatCardHeader, MatCardTitle } from '@angular/material/card';
-import { MatChip } from '@angular/material/chips';
 import { MatIcon } from '@angular/material/icon';
-import { RouterLink } from '@angular/router';
+import { MatMenuModule } from '@angular/material/menu';
 import { AppAuthService } from '../../service/app.auth.service';
 
 @Component({
-  selector: 'app-login-page',
-  templateUrl: './login.html',
-  styleUrl: './login.scss',
-  imports: [
-    MatCard,
-    MatCardHeader,
-    MatCardTitle,
-    MatCardContent,
-    MatCardActions,
-    MatButton,
-    MatIcon,
-    MatChip,
-    RouterLink
-  ]
+  selector: 'app-user-badge',
+  templateUrl: './user-badge.html',
+  styleUrl: './user-badge.scss',
+  imports: [MatButton, MatIcon, MatMenuModule]
 })
-export class Login implements OnInit {
+export class UserBadge implements OnInit {
   private authService = inject(AppAuthService);
 
   public username = '';
@@ -33,15 +21,19 @@ export class Login implements OnInit {
     this.authService.useraliasObservable.subscribe(alias => (this.useralias = alias));
   }
 
+  public get displayName(): string {
+    return this.username || this.useralias || 'Gast';
+  }
+
+  public isAuthenticated(): boolean {
+    return this.authService.isAuthenticated();
+  }
+
   public login(): void {
     this.authService.login();
   }
 
   public logout(): void {
     this.authService.logout();
-  }
-
-  public isAuthenticated(): boolean {
-    return this.authService.isAuthenticated();
   }
 }

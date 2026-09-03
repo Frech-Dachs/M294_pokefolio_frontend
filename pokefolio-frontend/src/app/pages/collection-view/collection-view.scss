@@ -1,0 +1,38 @@
+.collection-view {
+  position: relative;
+  min-height: calc(100vh - 48px);
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 20px;
+  }
+
+  &__grid-item {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+
+  &__empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 64px 0;
+    color: var(--mat-sys-on-surface-variant);
+
+    mat-icon {
+      font-size: 40px;
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  &__fab {
+    position: fixed;
+    top: 32px;
+    right: 32px;
+  }
+}

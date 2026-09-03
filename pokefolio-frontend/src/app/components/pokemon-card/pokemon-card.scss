@@ -1,0 +1,68 @@
+.pokemon-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  height: 100%;
+  border-radius: 16px;
+  transition:
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+
+  &:hover {
+    box-shadow: var(--mat-sys-level2);
+    transform: translateY(-2px);
+  }
+
+  &__image {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    aspect-ratio: 3 / 4;
+    background-image: repeating-linear-gradient(
+      45deg,
+      var(--mat-sys-surface-container-high) 0,
+      var(--mat-sys-surface-container-high) 1px,
+      transparent 1px,
+      transparent 8px
+    );
+    background-color: var(--mat-sys-surface-container-low);
+    color: var(--mat-sys-outline);
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__placeholder-icon {
+    font-size: 32px;
+    width: 32px;
+    height: 32px;
+  }
+
+  &__placeholder-text {
+    font: var(--mat-sys-label-small);
+  }
+
+  &__body {
+    padding: 12px 16px !important;
+  }
+
+  &__name {
+    margin: 0;
+    font: var(--mat-sys-title-medium);
+    color: var(--mat-sys-on-surface);
+  }
+
+  &__subtitle {
+    margin: 2px 0 0;
+    font: var(--mat-sys-body-small);
+    color: var(--mat-sys-on-surface-variant);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}

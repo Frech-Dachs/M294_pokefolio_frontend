@@ -1,0 +1,17 @@
+<mat-card class="pokemon-card" appearance="outlined">
+  <div class="pokemon-card__image">
+    @if (imageUrl) {
+      <img [src]="imageUrl" [alt]="name" />
+    } @else {
+      <mat-icon class="pokemon-card__placeholder-icon">image</mat-icon>
+      <span class="pokemon-card__placeholder-text">Kein Bild</span>
+    }
+  </div>
+
+  <mat-card-content class="pokemon-card__body">
+    <p class="pokemon-card__name">{{ name }}</p>
+    @if (subtitle) {
+      <p class="pokemon-card__subtitle">{{ subtitle }}</p>
+    }
+  </mat-card-content>
+</mat-card>
