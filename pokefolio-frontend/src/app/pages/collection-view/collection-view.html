@@ -3,7 +3,7 @@
     <div class="collection-view__grid">
       @for (card of cards; track card.id) {
         <a [routerLink]="['/app/card', card.id]" class="collection-view__grid-item">
-          <app-pokemon-card [imageUrl]="card.imageUrl" [name]="card.name" [subtitle]="card.subtitle" />
+          <app-pokemon-card [imageUrl]="card.imageUrl" [name]="card.name" [subtitle]="card.setName + ' · ' + card.cardNumber" />
         </a>
       }
     </div>
