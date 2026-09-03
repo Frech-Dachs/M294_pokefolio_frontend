@@ -15,7 +15,7 @@ import { authConfig } from './app.auth';
 import { routes } from './app.routes';
 import { AppAuthService } from './service/app.auth.service';
 
-function storageFactory(): OAuthStorage {
+export function storageFactory(): OAuthStorage {
   return sessionStorage;
 }
 
@@ -23,21 +23,32 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
-    importProvidersFrom(BrowserModule),
-    { provide: AuthConfig, useValue: authConfig },
-    { provide: OAuthStorage, useFactory: storageFactory },
+    importProvidersFrom(
+        BrowserModule,
+    ),
+    { 
+        provide: AuthConfig, 
+        useValue: authConfig 
+    },
+    {
+      provide: OAuthStorage,
+      useFactory: storageFactory,
+    },
     provideHttpClient(
       withInterceptorsFromDi(),
-      withXsrfConfiguration({ cookieName: 'XSRF-TOKEN', headerName: 'X-XSRF-TOKEN' })
-    ),
-    provideOAuthClient({
-      resourceServer: {
-        sendAccessToken: true,
-        allowedUrls: [environment.backendBaseUrl]
-      }
+      withXsrfConfiguration({
+        cookieName: 'XSRF-TOKEN',
+        headerName: 'X-XSRF-TOKEN',
+      })
+    ),    
+    provideOAuthClient({ 
+        resourceServer: { 
+            sendAccessToken: true, 
+            allowedUrls: [environment.backendBaseUrl], 
+        } 
     }),
     provideEnvironmentInitializer(() => {
-      void inject(AppAuthService).initAuth();
-    })
+        inject(AppAuthService).initAuth().finally()}
+    )  
   ]
 };
