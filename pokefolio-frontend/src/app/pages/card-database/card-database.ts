@@ -5,6 +5,8 @@ import { MatIcon } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { CreateCardDialog } from '../../components/create-card-dialog/create-card-dialog';
 import { PokemonCard } from '../../components/pokemon-card/pokemon-card';
+import { IsInRolesDirective } from '../../directives/app-is-in-roles.dir';
+import { AppRoles } from '../../app.roles';
 import { Card } from '../../data/card';
 import { CardService } from '../../service/card.service';
 
@@ -12,12 +14,13 @@ import { CardService } from '../../service/card.service';
   selector: 'app-card-database',
   templateUrl: './card-database.html',
   styleUrl: './card-database.scss',
-  imports: [PokemonCard, MatFabButton, MatIcon, RouterLink]
+  imports: [PokemonCard, MatFabButton, MatIcon, RouterLink, IsInRolesDirective]
 })
 export class CardDatabase implements OnInit {
   private dialog = inject(MatDialog);
   private cardService = inject(CardService);
 
+  public readonly roles = AppRoles;
   public cards = signal<Card[]>([]);
 
   ngOnInit(): void {

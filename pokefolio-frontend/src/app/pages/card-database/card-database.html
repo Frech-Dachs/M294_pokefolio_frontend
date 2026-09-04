@@ -15,6 +15,7 @@
   }
 
   <button
+    *appIsInRoles="[roles.Admin]"
     (click)="createCard()"
     aria-label="Karten-Template erstellen"
     class="card-database__fab"
