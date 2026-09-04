@@ -5,9 +5,14 @@
       <span class="shell__brand-name">Pokefolio</span>
     </a>
 
-    <p class="shell__section-label">Collections</p>
+    <div class="shell__section-header">
+      <p class="shell__section-label">Collections</p>
+      <button (click)="createCollection()" aria-label="Sammlung erstellen" mat-icon-button>
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
     <mat-nav-list class="shell__nav-list">
-      @for (collection of collections; track collection.id) {
+      @for (collection of collections(); track collection.id) {
         <a
           [routerLink]="['/app/collections', collection.id]"
           class="shell__nav-item"

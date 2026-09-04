@@ -1,7 +1,7 @@
 <section class="collection-view">
-  @if (cards.length) {
+  @if (cards().length) {
     <div class="collection-view__grid">
-      @for (card of cards; track card.id) {
+      @for (card of cards(); track card.id) {
         <a [routerLink]="['/app/card', card.card.id]" class="collection-view__grid-item">
           <app-pokemon-card [imageUrl]="card.card.imageUrl" [name]="card.card.name" [subtitle]="card.card.setName + ' · ' + card.card.cardNumber" />
         </a>

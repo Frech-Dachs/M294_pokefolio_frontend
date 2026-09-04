@@ -53,15 +53,15 @@
       <input formControlName="imageUrl" matInput placeholder="https://..." />
     </mat-form-field>
 
-    @if (errorMessage) {
-      <p class="create-card-dialog__error">{{ errorMessage }}</p>
+    @if (errorMessage()) {
+      <p class="create-card-dialog__error">{{ errorMessage() }}</p>
     }
   </mat-dialog-content>
 
   <mat-dialog-actions align="end">
     <button mat-button mat-dialog-close type="button">Abbrechen</button>
-    <button [disabled]="isSaving" color="primary" mat-flat-button type="submit">
-      @if (isSaving) {
+    <button [disabled]="isSaving()" color="primary" mat-flat-button type="submit">
+      @if (isSaving()) {
         <mat-spinner diameter="20" />
       } @else {
         Template erstellen

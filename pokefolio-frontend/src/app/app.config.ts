@@ -1,4 +1,4 @@
-import { provideHttpClient, withInterceptorsFromDi, withXsrfConfiguration } from '@angular/common/http';
+import { provideHttpClient, withInterceptors, withInterceptorsFromDi, withXsrfConfiguration } from '@angular/common/http';
 import {
   ApplicationConfig,
   importProvidersFrom,
@@ -14,6 +14,7 @@ import { AuthConfig, OAuthStorage, provideOAuthClient } from 'angular-oauth2-oid
 import { environment } from '../environments/environment';
 import { authConfig } from './app.auth';
 import { routes } from './app.routes';
+import { withCredentialsInterceptor } from './interceptors/with-credentials.interceptor';
 import { AppAuthService } from './service/app.auth.service';
 
 export function storageFactory(): OAuthStorage {
@@ -38,11 +39,12 @@ export const appConfig: ApplicationConfig = {
     },
     provideHttpClient(
       withInterceptorsFromDi(),
+      withInterceptors([withCredentialsInterceptor]),
       withXsrfConfiguration({
         cookieName: 'XSRF-TOKEN',
-        headerName: 'X-XSRF-TOKEN',
+        headerName: 'X-XSRF-TOKEN'
       })
-    ),    
+    ),
     provideOAuthClient({ 
         resourceServer: { 
             sendAccessToken: true, 

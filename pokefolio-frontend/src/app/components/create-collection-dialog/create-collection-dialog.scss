@@ -1,0 +1,19 @@
+.create-collection-dialog {
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding-top: 4px;
+    min-width: 320px;
+  }
+
+  &__error {
+    margin: 0 0 8px;
+    color: var(--mat-sys-error);
+    font: var(--mat-sys-body-small);
+  }
+}
+
+mat-form-field {
+  width: 100%;
+}

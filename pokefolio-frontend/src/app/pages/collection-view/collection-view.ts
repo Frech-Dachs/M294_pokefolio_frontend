@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { MatFabButton } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
@@ -20,7 +20,7 @@ export class CollectionView implements OnInit {
   private cardInstanceService = inject(CardInstanceService);
 
   public collectionId = '';
-  public cards: CardInstance[] = [];
+  public cards = signal<CardInstance[]>([]);
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -31,7 +31,7 @@ export class CollectionView implements OnInit {
 
   private loadCards(): void {
     this.cardInstanceService.getByCollection(Number(this.collectionId)).subscribe(cards => {
-      this.cards = cards;
+      this.cards.set(cards);
     });
   }
 

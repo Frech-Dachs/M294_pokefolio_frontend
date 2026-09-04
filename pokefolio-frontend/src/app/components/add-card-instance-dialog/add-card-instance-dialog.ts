@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatOption } from '@angular/material/core';
@@ -49,8 +49,8 @@ export class AddCardInstanceDialog implements OnInit {
   private cardService = inject(CardService);
   private cardInstanceService = inject(CardInstanceService);
 
-  public templates: Card[] = [];
-  public isLoadingTemplates = true;
+  public templates = signal<Card[]>([]);
+  public isLoadingTemplates = signal(true);
 
   public form = this.fb.nonNullable.group({
     cardId: [0, Validators.required],
@@ -58,33 +58,33 @@ export class AddCardInstanceDialog implements OnInit {
     quantity: [1, [Validators.required, Validators.min(1)]]
   });
 
-  public isSaving = false;
-  public errorMessage = '';
+  public isSaving = signal(false);
+  public errorMessage = signal('');
 
   ngOnInit(): void {
     this.cardService.getAll().subscribe({
       next: cards => {
-        this.templates = cards;
-        this.isLoadingTemplates = false;
+        this.templates.set(cards);
+        this.isLoadingTemplates.set(false);
         if (cards.length) {
           this.form.controls.cardId.setValue(cards[0].id);
         }
       },
       error: () => {
-        this.isLoadingTemplates = false;
-        this.errorMessage = 'Die Karten-Templates konnten nicht geladen werden.';
+        this.isLoadingTemplates.set(false);
+        this.errorMessage.set('Die Karten-Templates konnten nicht geladen werden.');
       }
     });
   }
 
   public submit(): void {
-    if (this.form.invalid || this.isSaving) {
+    if (this.form.invalid || this.isSaving()) {
       this.form.markAllAsTouched();
       return;
     }
 
-    this.isSaving = true;
-    this.errorMessage = '';
+    this.isSaving.set(true);
+    this.errorMessage.set('');
 
     const { cardId, condition, quantity } = this.form.getRawValue();
 
@@ -95,15 +95,16 @@ export class AddCardInstanceDialog implements OnInit {
       })
       .subscribe({
         next: (instance: CardInstance) => {
-          this.isSaving = false;
+          this.isSaving.set(false);
           this.dialogRef.close(instance);
         },
         error: err => {
-          this.isSaving = false;
-          this.errorMessage =
+          this.isSaving.set(false);
+          this.errorMessage.set(
             err?.status === 403
               ? 'Das ist nicht deine Sammlung.'
-              : 'Die Karte konnte nicht hinzugefügt werden. Bitte versuche es erneut.';
+              : 'Die Karte konnte nicht hinzugefügt werden. Bitte versuche es erneut.'
+          );
         }
       });
   }

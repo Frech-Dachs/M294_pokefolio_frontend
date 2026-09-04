@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatOption } from '@angular/material/core';
@@ -55,29 +55,30 @@ export class CreateCardDialog {
     imageUrl: ['', Validators.required]
   });
 
-  public isSaving = false;
-  public errorMessage = '';
+  public isSaving = signal(false);
+  public errorMessage = signal('');
 
   public submit(): void {
-    if (this.form.invalid || this.isSaving) {
+    if (this.form.invalid || this.isSaving()) {
       this.form.markAllAsTouched();
       return;
     }
 
-    this.isSaving = true;
-    this.errorMessage = '';
+    this.isSaving.set(true);
+    this.errorMessage.set('');
 
     this.cardService.create(this.form.getRawValue()).subscribe({
       next: (card: Card) => {
-        this.isSaving = false;
+        this.isSaving.set(false);
         this.dialogRef.close(card);
       },
       error: err => {
-        this.isSaving = false;
-        this.errorMessage =
+        this.isSaving.set(false);
+        this.errorMessage.set(
           err?.status === 403
             ? 'Du hast keine Berechtigung, neue Karten-Templates zu erstellen.'
-            : 'Das Karten-Template konnte nicht erstellt werden. Bitte versuche es erneut.';
+            : 'Das Karten-Template konnte nicht erstellt werden. Bitte versuche es erneut.'
+        );
       }
     });
   }

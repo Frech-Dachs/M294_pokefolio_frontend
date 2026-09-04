@@ -1,0 +1,28 @@
+<h2 mat-dialog-title>Neue Sammlung erstellen</h2>
+
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <mat-dialog-content class="create-collection-dialog__content">
+    <mat-form-field appearance="outline">
+      <mat-label>Name</mat-label>
+      <input formControlName="name" matInput placeholder="z. B. Base Set Sammlung" />
+      @if (form.controls.name.invalid && form.controls.name.touched) {
+        <mat-error>Name ist erforderlich.</mat-error>
+      }
+    </mat-form-field>
+
+    @if (errorMessage()) {
+      <p class="create-collection-dialog__error">{{ errorMessage() }}</p>
+    }
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close type="button">Abbrechen</button>
+    <button [disabled]="isSaving()" color="primary" mat-flat-button type="submit">
+      @if (isSaving()) {
+        <mat-spinner diameter="20" />
+      } @else {
+        Erstellen
+      }
+    </button>
+  </mat-dialog-actions>
+</form>

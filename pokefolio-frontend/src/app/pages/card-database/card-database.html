@@ -1,7 +1,7 @@
 <section class="card-database">
-  @if (cards.length) {
+  @if (cards().length) {
     <div class="card-database__grid">
-      @for (card of cards; track card.id) {
+      @for (card of cards(); track card.id) {
         <a [routerLink]="['/app/card', card.id]" class="card-database__grid-item">
           <app-pokemon-card [imageUrl]="card.imageUrl" [name]="card.name" [subtitle]="card.setName + ' · ' + card.cardNumber" />
         </a>

@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { MatFabButton } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
@@ -18,7 +18,7 @@ export class CardDatabase implements OnInit {
   private dialog = inject(MatDialog);
   private cardService = inject(CardService);
 
-  public cards: Card[] = [];
+  public cards = signal<Card[]>([]);
 
   ngOnInit(): void {
     this.loadCards();
@@ -26,7 +26,7 @@ export class CardDatabase implements OnInit {
 
   private loadCards(): void {
     this.cardService.getAll().subscribe(cards => {
-      this.cards = cards;
+      this.cards.set(cards);
     });
   }
 

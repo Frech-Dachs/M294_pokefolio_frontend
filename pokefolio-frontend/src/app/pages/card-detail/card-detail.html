@@ -3,7 +3,7 @@
     <mat-icon>arrow_back</mat-icon>
   </button>
 
-  @if (card) {
+  @if (card(); as card) {
     <div class="card-detail__layout">
       <div class="card-detail__image">
         @if (card.imageUrl) {
@@ -16,12 +16,12 @@
 
       <div class="card-detail__info">
         <h1 class="card-detail__title">{{ card.name }}</h1>
-        @for (paragraph of paragraphs; track paragraph) {
+        @for (paragraph of paragraphs(); track paragraph) {
           <p class="card-detail__paragraph">{{ paragraph }}</p>
         }
       </div>
     </div>
-  } @else if (notFound) {
+  } @else if (notFound()) {
     <p class="card-detail__paragraph">Diese Karte konnte nicht gefunden werden.</p>
   }
 </section>

@@ -2,11 +2,11 @@
 
 <form [formGroup]="form" (ngSubmit)="submit()">
   <mat-dialog-content class="add-card-instance-dialog__content">
-    @if (isLoadingTemplates) {
+    @if (isLoadingTemplates()) {
       <div class="add-card-instance-dialog__loading">
         <mat-spinner diameter="28" />
       </div>
-    } @else if (!templates.length) {
+    } @else if (!templates().length) {
       <p class="add-card-instance-dialog__empty">
         Es existieren noch keine Karten-Templates. Erstelle zuerst eine Karte in der Card Database.
       </p>
@@ -14,7 +14,7 @@
       <mat-form-field appearance="outline">
         <mat-label>Karte</mat-label>
         <mat-select formControlName="cardId">
-          @for (template of templates; track template.id) {
+          @for (template of templates(); track template.id) {
             <mat-option [value]="template.id">{{ template.name }} · {{ template.setName }} ({{ template.cardNumber }})</mat-option>
           }
         </mat-select>
@@ -31,15 +31,15 @@
       </mat-form-field>
     }
 
-    @if (errorMessage) {
-      <p class="add-card-instance-dialog__error">{{ errorMessage }}</p>
+    @if (errorMessage()) {
+      <p class="add-card-instance-dialog__error">{{ errorMessage() }}</p>
     }
   </mat-dialog-content>
 
   <mat-dialog-actions align="end">
     <button mat-button mat-dialog-close type="button">Abbrechen</button>
-    <button [disabled]="isSaving || !templates.length" color="primary" mat-flat-button type="submit">
-      @if (isSaving) {
+    <button [disabled]="isSaving() || !templates().length" color="primary" mat-flat-button type="submit">
+      @if (isSaving()) {
         <mat-spinner diameter="20" />
       } @else {
         Hinzufügen
