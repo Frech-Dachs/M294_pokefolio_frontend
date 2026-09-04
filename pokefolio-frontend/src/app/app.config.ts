@@ -3,8 +3,8 @@ import {
   ApplicationConfig,
   importProvidersFrom,
   inject,
-  provideBrowserGlobalErrorListeners,
-  provideEnvironmentInitializer
+  provideAppInitializer,
+  provideBrowserGlobalErrorListeners
 } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
@@ -51,8 +51,6 @@ export const appConfig: ApplicationConfig = {
             allowedUrls: [environment.backendBaseUrl], 
         } 
     }),
-    provideEnvironmentInitializer(() => {
-        inject(AppAuthService).initAuth().finally()}
-    )  
+    provideAppInitializer(() => inject(AppAuthService).initAuth())
   ]
 };
