@@ -1,0 +1,25 @@
+.create-card-dialog {
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding-top: 4px;
+    min-width: 360px;
+  }
+
+  &__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  &__error {
+    margin: 0 0 8px;
+    color: var(--mat-sys-error);
+    font: var(--mat-sys-body-small);
+  }
+}
+
+mat-form-field {
+  width: 100%;
+}

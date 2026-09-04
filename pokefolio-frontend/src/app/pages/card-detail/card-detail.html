@@ -3,21 +3,25 @@
     <mat-icon>arrow_back</mat-icon>
   </button>
 
-  <div class="card-detail__layout">
-    <div class="card-detail__image">
-      @if (imageUrl) {
-        <img [src]="imageUrl" [alt]="name" />
-      } @else {
-        <mat-icon class="card-detail__placeholder-icon">image</mat-icon>
-        <span class="card-detail__placeholder-text">Kein Bild</span>
-      }
-    </div>
+  @if (card) {
+    <div class="card-detail__layout">
+      <div class="card-detail__image">
+        @if (card.imageUrl) {
+          <img [src]="card.imageUrl" [alt]="card.name" />
+        } @else {
+          <mat-icon class="card-detail__placeholder-icon">image</mat-icon>
+          <span class="card-detail__placeholder-text">Kein Bild</span>
+        }
+      </div>
 
-    <div class="card-detail__info">
-      <h1 class="card-detail__title">{{ name }}</h1>
-      @for (paragraph of paragraphs; track paragraph) {
-        <p class="card-detail__paragraph">{{ paragraph }}</p>
-      }
+      <div class="card-detail__info">
+        <h1 class="card-detail__title">{{ card.name }}</h1>
+        @for (paragraph of paragraphs; track paragraph) {
+          <p class="card-detail__paragraph">{{ paragraph }}</p>
+        }
+      </div>
     </div>
-  </div>
+  } @else if (notFound) {
+    <p class="card-detail__paragraph">Diese Karte konnte nicht gefunden werden.</p>
+  }
 </section>

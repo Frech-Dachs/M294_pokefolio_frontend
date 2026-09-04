@@ -1,0 +1,26 @@
+<section class="card-database">
+  @if (cards.length) {
+    <div class="card-database__grid">
+      @for (card of cards; track card.id) {
+        <a [routerLink]="['/app/card', card.id]" class="card-database__grid-item">
+          <app-pokemon-card [imageUrl]="card.imageUrl" [name]="card.name" [subtitle]="card.setName + ' · ' + card.cardNumber" />
+        </a>
+      }
+    </div>
+  } @else {
+    <div class="card-database__empty">
+      <mat-icon>catching_pokemon</mat-icon>
+      <p>Es wurden noch keine Karten-Templates erstellt.</p>
+    </div>
+  }
+
+  <button
+    (click)="createCard()"
+    aria-label="Karten-Template erstellen"
+    class="card-database__fab"
+    color="primary"
+    mat-fab
+  >
+    <mat-icon>add</mat-icon>
+  </button>
+</section>

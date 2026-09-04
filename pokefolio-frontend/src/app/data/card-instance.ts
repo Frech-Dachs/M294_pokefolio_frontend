@@ -1,11 +1,8 @@
+import { Card } from './card';
+
 export interface CardInstance {
   id: number;
-  cardId: number;
-  collectionId: number;
+  card: Card;
   condition?: string;
-  notes?: string;
-  name: string;
-  imageUrl: string;
-  setName: string;
-  cardNumber: string;
+  quantity: number;
 }

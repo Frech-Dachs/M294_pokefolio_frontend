@@ -3,6 +3,11 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { CardInstance } from '../data/card-instance';
 
+export interface CardInstanceInput {
+  condition?: string;
+  quantity: number;
+}
+
 @Injectable({ providedIn: 'root' })
 export class CardInstanceService {
   private http = inject(HttpClient);
@@ -12,11 +17,15 @@ export class CardInstanceService {
     return this.http.get<CardInstance[]>(`${this.baseUrl}/collection/${collectionId}`);
   }
 
-  create(instance: Partial<CardInstance>) {
-    return this.http.post<CardInstance>(this.baseUrl, instance);
+  getById(id: number) {
+    return this.http.get<CardInstance>(`${this.baseUrl}/${id}`);
   }
 
-  update(id: number, instance: Partial<CardInstance>) {
+  addToCollection(collectionId: number, cardId: number, instance: CardInstanceInput) {
+    return this.http.post<CardInstance>(`${this.baseUrl}/collection/${collectionId}/card/${cardId}`, instance);
+  }
+
+  update(id: number, instance: CardInstanceInput) {
     return this.http.put<CardInstance>(`${this.baseUrl}/${id}`, instance);
   }
 

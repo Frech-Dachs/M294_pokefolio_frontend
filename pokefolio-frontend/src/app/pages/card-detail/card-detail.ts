@@ -3,6 +3,8 @@ import { Component, inject, OnInit } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { ActivatedRoute } from '@angular/router';
+import { Card } from '../../data/card';
+import { CardService } from '../../service/card.service';
 
 @Component({
   selector: 'app-card-detail',
@@ -13,21 +15,31 @@ import { ActivatedRoute } from '@angular/router';
 export class CardDetail implements OnInit {
   private route = inject(ActivatedRoute);
   private location = inject(Location);
+  private cardService = inject(CardService);
 
   public cardId = '';
+  public card?: Card;
+  public notFound = false;
 
-  // TODO(user): replace mock data with a real call, e.g. CardService.getById(cardId)
-  public name = 'Pikachu';
-  public imageUrl?: string;
-  public paragraphs: string[] = [
-    'Set: Base Set · Nummer 58/102 · Rarity: Common',
-    'Zustand: Near Mint. Erworben am 12.03.2024 im Booster-Pack.',
-    'Notizen: Lieblingskarte der Sammlung – wird nicht zum Verkauf angeboten.'
-  ];
+  public get paragraphs(): string[] {
+    if (!this.card) {
+      return [];
+    }
+    return [
+      `Set: ${this.card.setName} · Nummer ${this.card.cardNumber} · Rarity: ${this.card.rarity}`,
+      `Typ: ${this.card.type}${this.card.hp ? ' · HP: ' + this.card.hp : ''}`
+    ];
+  }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       this.cardId = params.get('cardId') ?? '';
+      if (this.cardId) {
+        this.cardService.getById(Number(this.cardId)).subscribe({
+          next: card => (this.card = card),
+          error: () => (this.notFound = true)
+        });
+      }
     });
   }
 

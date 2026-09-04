@@ -12,6 +12,10 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/collection-view/collection-view').then(c => c.CollectionView)
       },
       {
+        path: 'card-database',
+        loadComponent: () => import('./pages/card-database/card-database').then(c => c.CardDatabase)
+      },
+      {
         path: 'card/:cardId',
         loadComponent: () => import('./pages/card-detail/card-detail').then(c => c.CardDetail)
       }

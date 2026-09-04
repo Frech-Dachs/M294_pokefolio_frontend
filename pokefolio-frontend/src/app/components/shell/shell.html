@@ -23,15 +23,15 @@
     <span class="shell__spacer"></span>
 
     <mat-nav-list class="shell__nav-list">
-      <button
-        class="shell__nav-item shell__nav-item--disabled"
-        disabled
+      <a
+        [routerLink]="['/app/card-database']"
+        class="shell__nav-item"
         mat-list-item
-        matTooltip="Bald verfügbar"
+        routerLinkActive="shell__nav-item--active"
       >
         <mat-icon matListItemIcon>storage</mat-icon>
         <span matListItemTitle>Card Database</span>
-      </button>
+      </a>
     </mat-nav-list>
 
     <app-user-badge class="shell__user-badge" />

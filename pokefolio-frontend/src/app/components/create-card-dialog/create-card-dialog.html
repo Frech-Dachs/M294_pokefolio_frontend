@@ -1,0 +1,71 @@
+<h2 mat-dialog-title>Neues Karten-Template erstellen</h2>
+
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <mat-dialog-content class="create-card-dialog__content">
+    <mat-form-field appearance="outline">
+      <mat-label>Kartentyp</mat-label>
+      <mat-select formControlName="cardType">
+        @for (cardType of cardTypes; track cardType) {
+          <mat-option [value]="cardType">{{ cardType }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Name</mat-label>
+      <input formControlName="name" matInput placeholder="z. B. Pikachu" />
+      @if (form.controls.name.invalid && form.controls.name.touched) {
+        <mat-error>Name ist erforderlich.</mat-error>
+      }
+    </mat-form-field>
+
+    <div class="create-card-dialog__row">
+      <mat-form-field appearance="outline">
+        <mat-label>Typ</mat-label>
+        <input formControlName="type" matInput placeholder="z. B. Electric" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>HP</mat-label>
+        <input formControlName="hp" matInput type="number" />
+      </mat-form-field>
+    </div>
+
+    <div class="create-card-dialog__row">
+      <mat-form-field appearance="outline">
+        <mat-label>Rarity</mat-label>
+        <input formControlName="rarity" matInput placeholder="z. B. Common" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Set</mat-label>
+        <input formControlName="setName" matInput placeholder="z. B. Base Set" />
+      </mat-form-field>
+    </div>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Kartennummer</mat-label>
+      <input formControlName="cardNumber" matInput placeholder="z. B. 58/102" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Bild-URL</mat-label>
+      <input formControlName="imageUrl" matInput placeholder="https://..." />
+    </mat-form-field>
+
+    @if (errorMessage) {
+      <p class="create-card-dialog__error">{{ errorMessage }}</p>
+    }
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close type="button">Abbrechen</button>
+    <button [disabled]="isSaving" color="primary" mat-flat-button type="submit">
+      @if (isSaving) {
+        <mat-spinner diameter="20" />
+      } @else {
+        Template erstellen
+      }
+    </button>
+  </mat-dialog-actions>
+</form>

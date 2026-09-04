@@ -7,6 +7,7 @@ import {
   provideEnvironmentInitializer
 } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideRouter } from '@angular/router';
 import { AuthConfig, OAuthStorage, provideOAuthClient } from 'angular-oauth2-oidc';
 
@@ -23,6 +24,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
+    provideAnimationsAsync(),
     importProvidersFrom(
         BrowserModule,
     ),
