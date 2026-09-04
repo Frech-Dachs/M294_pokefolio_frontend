@@ -4,4 +4,8 @@ export interface CardInstance {
   collectionId: number;
   condition?: string;
   notes?: string;
+  name: string;
+  imageUrl: string;
+  setName: string;
+  cardNumber: string;
 }
