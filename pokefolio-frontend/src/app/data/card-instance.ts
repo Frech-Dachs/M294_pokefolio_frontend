@@ -1,8 +1,8 @@
 import { Card } from './card';
 
-export interface CardInstance {
-  id: number;
-  card: Card;
-  condition?: string;
-  quantity: number;
+export class CardInstance {
+  public id!: number;
+  public card: Card = new Card();
+  public condition?: string;
+  public quantity = 1;
 }

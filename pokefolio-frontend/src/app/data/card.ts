@@ -1,13 +1,13 @@
 import { CardType } from "./card-type";
 
-export interface Card {
-  id: number;
-  cardType: CardType;
-  name: string;
-  type: string;
-  hp: number;
-  rarity: string;
-  setName: string;
-  cardNumber: string;
-  imageUrl: string;
+export class Card {
+  public id!: number;
+  public cardType: CardType = CardType.POKEMON;
+  public name = '';
+  public type = '';
+  public hp = 0;
+  public rarity = '';
+  public setName = '';
+  public cardNumber = '';
+  public imageUrl = '';
 }
