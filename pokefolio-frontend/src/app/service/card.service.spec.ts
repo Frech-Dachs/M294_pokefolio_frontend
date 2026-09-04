@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 
-import { CardService } from './card.service';
+import { CardService, NewCard } from './card.service';
 import { CardType } from '../data/card-type';
 import { Card } from '../data/card';
 import { environment } from '../../environments/environment';
@@ -13,8 +13,7 @@ describe('CardService', () => {
 
   const baseUrl = `${environment.backendBaseUrl}card`;
 
-  const fakeCard: Card = {
-    id: 1,
+  const newCard: NewCard = {
     cardType: CardType.POKEMON,
     name: 'Pikachu',
     type: 'Electric',
@@ -24,6 +23,8 @@ describe('CardService', () => {
     cardNumber: '25/102',
     imageUrl: 'https://example.com/pikachu.png'
   };
+
+  const fakeCard: Card = { id: 1, ...newCard };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -59,8 +60,6 @@ describe('CardService', () => {
   });
 
   it('should create a card', () => {
-    const { id, ...newCard } = fakeCard;
-
     service.create(newCard).subscribe(card => expect(card).toEqual(fakeCard));
 
     const req = httpMock.expectOne(baseUrl);
@@ -70,13 +69,11 @@ describe('CardService', () => {
   });
 
   it('should update a card', () => {
-    const { id, ...updatedCard } = fakeCard;
-
-    service.update(1, updatedCard).subscribe(card => expect(card).toEqual(fakeCard));
+    service.update(1, newCard).subscribe(card => expect(card).toEqual(fakeCard));
 
     const req = httpMock.expectOne(`${baseUrl}/1`);
     expect(req.request.method).toBe('PUT');
-    expect(req.request.body).toEqual(updatedCard);
+    expect(req.request.body).toEqual(newCard);
     req.flush(fakeCard);
   });
 

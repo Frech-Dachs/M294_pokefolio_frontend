@@ -9,6 +9,8 @@ import { CreateCollectionDialog } from '../create-collection-dialog/create-colle
 import { Collection } from '../../data/collection';
 import { UserBadge } from '../user-badge/user-badge';
 import { CollectionService } from '../../service/collection.service';
+import { IsInRolesDirective } from '../../directives/app-is-in-roles.dir';
+import { AppRoles } from '../../app.roles';
 
 @Component({
   selector: 'app-shell',
@@ -22,7 +24,8 @@ import { CollectionService } from '../../service/collection.service';
     RouterLink,
     RouterLinkActive,
     RouterOutlet,
-    UserBadge
+    UserBadge,
+    IsInRolesDirective
   ]
 })
 export class Shell implements OnInit {
@@ -30,6 +33,7 @@ export class Shell implements OnInit {
   private dialog = inject(MatDialog);
   private router = inject(Router);
 
+  public readonly roles = AppRoles;
   public collections = signal<Collection[]>([]);
 
   ngOnInit(): void {

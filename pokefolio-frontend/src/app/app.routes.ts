@@ -32,6 +32,11 @@ export const routes: Routes = [
         path: 'card/:cardId',
         loadComponent: () => import('./pages/card-detail/card-detail').then(c => c.CardDetail),
         data: { roles: [AppRoles.Read] }
+      },
+      {
+        path: 'admin',
+        loadComponent: () => import('./pages/admin-panel/admin-panel').then(c => c.AdminPanel),
+        data: { roles: [AppRoles.Admin] }
       }
     ]
   }

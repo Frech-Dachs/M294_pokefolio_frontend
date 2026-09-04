@@ -37,6 +37,16 @@
         <mat-icon matListItemIcon>storage</mat-icon>
         <span matListItemTitle>Card Database</span>
       </a>
+      <a
+        *appIsInRoles="[roles.Admin]"
+        [routerLink]="['/app/admin']"
+        class="shell__nav-item"
+        mat-list-item
+        routerLinkActive="shell__nav-item--active"
+      >
+        <mat-icon matListItemIcon>admin_panel_settings</mat-icon>
+        <span matListItemTitle>Admin Panel</span>
+      </a>
     </mat-nav-list>
 
     <app-user-badge class="shell__user-badge" />

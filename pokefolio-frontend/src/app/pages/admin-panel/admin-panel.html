@@ -1,0 +1,25 @@
+<section class="admin-panel">
+  <div class="admin-panel__header">
+    <mat-icon class="admin-panel__header-icon">admin_panel_settings</mat-icon>
+    <div>
+      <h1 class="admin-panel__title">Admin Panel</h1>
+      <p class="admin-panel__subtitle">Nur für Admins sichtbar &ndash; Übersicht aller registrierten Benutzer.</p>
+    </div>
+  </div>
+
+  @if (isLoading()) {
+    <p class="admin-panel__status">Lade Benutzer&hellip;</p>
+  } @else if (users().length) {
+    <ul class="admin-panel__list">
+      @for (user of users(); track user.id) {
+        <li class="admin-panel__list-item">
+          <mat-icon class="admin-panel__list-icon">person</mat-icon>
+          <span class="admin-panel__username">{{ user.username }}</span>
+          <span class="admin-panel__id">ID {{ user.id }}</span>
+        </li>
+      }
+    </ul>
+  } @else {
+    <p class="admin-panel__status">Es sind noch keine Benutzer registriert.</p>
+  }
+</section>
