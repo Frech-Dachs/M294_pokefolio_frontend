@@ -12,4 +12,5 @@ export class PokemonCard {
   @Input({ required: true }) name = '';
   @Input() subtitle = '';
   @Input() imageUrl?: string;
+  @Input() quantity?: number;
 }

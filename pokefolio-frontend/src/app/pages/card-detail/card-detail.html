@@ -19,6 +19,20 @@
         @for (paragraph of paragraphs(); track paragraph) {
           <p class="card-detail__paragraph">{{ paragraph }}</p>
         }
+
+        @if (instances().length) {
+          <h2 class="card-detail__section-title">
+            Deine Exemplare in dieser Sammlung ({{ totalQuantity() }})
+          </h2>
+          <ul class="card-detail__instance-list">
+            @for (instance of instances(); track instance.id) {
+              <li class="card-detail__instance">
+                <span class="card-detail__instance-condition">{{ instance.condition || 'Zustand unbekannt' }}</span>
+                <span class="card-detail__instance-quantity">×{{ instance.quantity }}</span>
+              </li>
+            }
+          </ul>
+        }
       </div>
     </div>
   } @else if (notFound()) {

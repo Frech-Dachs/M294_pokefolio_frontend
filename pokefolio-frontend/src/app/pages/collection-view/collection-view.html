@@ -1,9 +1,14 @@
 <section class="collection-view">
-  @if (cards().length) {
+  @if (groupedCards().length) {
     <div class="collection-view__grid">
-      @for (card of cards(); track card.id) {
-        <a [routerLink]="['/app/card', card.card.id]" class="collection-view__grid-item">
-          <app-pokemon-card [imageUrl]="card.card.imageUrl" [name]="card.card.name" [subtitle]="card.card.setName + ' · ' + card.card.cardNumber" />
+      @for (group of groupedCards(); track group.card.id) {
+        <a [routerLink]="['/app/collections', collectionId, 'card', group.card.id]" class="collection-view__grid-item">
+          <app-pokemon-card
+            [imageUrl]="group.card.imageUrl"
+            [name]="group.card.name"
+            [quantity]="group.totalQuantity"
+            [subtitle]="group.card.setName + ' · ' + group.card.cardNumber"
+          />
         </a>
       }
     </div>

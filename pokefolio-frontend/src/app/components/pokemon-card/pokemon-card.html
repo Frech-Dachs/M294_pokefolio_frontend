@@ -6,6 +6,9 @@
       <mat-icon class="pokemon-card__placeholder-icon">image</mat-icon>
       <span class="pokemon-card__placeholder-text">Kein Bild</span>
     }
+    @if (quantity) {
+      <span class="pokemon-card__quantity">×{{ quantity }}</span>
+    }
   </div>
 
   <mat-card-content class="pokemon-card__body">
